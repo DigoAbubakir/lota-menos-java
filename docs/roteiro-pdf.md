@@ -15,7 +15,7 @@
   - Rodrigo Abubakir – RM 561479
   - João Pedro Palmeira – RM 563542
   - Andre Ricardo Spinola Castor – RM 563964
-- **Turma:** `<TURMA>` · **Data:** `<DATA>`
+- **Turma:** 2ESPX · **Data:** 16/11/2026
 
 ### 1.2 Índice
 1. Descritivo da solução · Justificativa · Objetivos
