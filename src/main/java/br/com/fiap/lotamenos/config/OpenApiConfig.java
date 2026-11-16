@@ -28,7 +28,7 @@ public class OpenApiConfig {
                                 **ODS:** 9, 10 e 11. **Todos os dados são simulados** para fins acadêmicos.
 
                                 Global Solution FIAP 2026.2 — Domain Driven Design (Java).""")
-                        .contact(new Contact().name("Equipe Lota Menos"))
+                        .contact(new Contact().name("Equipe CPTM"))
                         .license(new License().name("Uso acadêmico")));
     }
 }

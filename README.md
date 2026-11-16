@@ -7,7 +7,7 @@
 | Campo | Descrição |
 |---|---|
 | **Nome** | LotaMenos |
-| **Equipe** | Lota Menos — 2ESPX |
+| **Equipe** | CPTM — 2ESPX |
 | **Cidade e bairro** | São Paulo – eixo da Linha 3-Vermelha do Metrô, da Zona Leste (Corinthians-Itaquera) ao Centro (Sé / República) e à Barra Funda |
 | **Cidadão beneficiado** | Trabalhador que usa a Linha 3-Vermelha (e conexões com a Linha 1-Azul e a CPTM) no horário de pico. Personas secundárias: idosa e mãe com carrinho de bebê (perfis com mobilidade reduzida) |
 | **Problema em uma frase** | Quem pega metrô e trem todo dia em SP não sabe quando nem onde vai estar lotado, e por isso perde tempo e viaja espremido. |
@@ -17,7 +17,7 @@
 | **Indicador de impacto** | Redução média de pontos de lotação nas sugestões aceitas e % de sugestões aceitas — calculados ao vivo por `GET /impacto` |
 | **ODS conectados** | **ODS 11 – Cidades e comunidades sustentáveis:** distribui a demanda do transporte público ao longo do tempo e torna a viagem mais humana. **ODS 9 – Indústria, inovação e infraestrutura:** usa dados e participação cidadã para extrair mais da infraestrutura de trilhos que já existe. **ODS 10 – Redução das desigualdades:** idosos e pessoas com mobilidade reduzida recebem só sugestões com lotação no máximo moderada, com alerta quando isso não é possível. |
 
-## Equipe Lota Menos — Integrantes
+## Equipe CPTM — Integrantes
 
 | Nome | RM |
 |---|---|
