@@ -109,6 +109,10 @@ Status: `201` + header `Location` no POST · `200` no GET/PUT · `204` no DELETE
 
 ### 1) Perfil `dev` — H2 em memória (não precisa do Oracle)
 
+**Jeito mais fácil (Windows):** dê dois cliques no arquivo `INICIAR.bat` na pasta do projeto. O navegador abre sozinho no Swagger quando a API estiver pronta. Para parar, feche a janela preta.
+
+Ou pelo terminal:
+
 ```bash
 mvnw.cmd spring-boot:run -Dspring-boot.run.profiles=dev      # Windows
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev        # Linux/Mac
