@@ -20,11 +20,11 @@
 
 | Nome | RM |
 |---|---|
-| `<NOME COMPLETO>` | RM `<RM>` |
-| `<NOME COMPLETO>` | RM `<RM>` |
-| `<NOME COMPLETO>` | RM `<RM>` |
-| `<NOME COMPLETO>` | RM `<RM>` |
-| `<NOME COMPLETO>` | RM `<RM>` |
+| Lucas de Almeida Sales da Silva | RM 564458 |
+| Gabriel Carvalho Simões da Silva | RM 563169 |
+| Rodrigo Abubakir | RM 561479 |
+| João Pedro Palmeira | RM 563542 |
+| Andre Ricardo Spinola Castor | RM 563964 |
 
 ## Link do deploy
 

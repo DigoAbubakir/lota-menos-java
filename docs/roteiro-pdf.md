@@ -10,11 +10,11 @@
 - **Projeto:** LotaMenos — previsão de lotação do metrô para quem viaja no pico
 - **Global Solution FIAP 2026.2 — Domain Driven Design (Java)**
 - **Integrantes:**
-  - `<NOME COMPLETO>` – RM `<RM>`
-  - `<NOME COMPLETO>` – RM `<RM>`
-  - `<NOME COMPLETO>` – RM `<RM>`
-  - `<NOME COMPLETO>` – RM `<RM>`
-  - `<NOME COMPLETO>` – RM `<RM>`
+  - Lucas de Almeida Sales da Silva – RM 564458
+  - Gabriel Carvalho Simões da Silva – RM 563169
+  - Rodrigo Abubakir – RM 561479
+  - João Pedro Palmeira – RM 563542
+  - Andre Ricardo Spinola Castor – RM 563964
 - **Turma:** `<TURMA>` · **Data:** `<DATA>`
 
 ### 1.2 Índice
