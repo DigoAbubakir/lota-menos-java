@@ -28,7 +28,7 @@
 
 ## Link do deploy
 
-`<LINK_DEPLOY>` → abre direto no Swagger (`GET /` redireciona para `/swagger-ui.html`).
+https://lota-menos-java.onrender.com → abre direto no Swagger (`GET /` redireciona para `/swagger-ui.html`).
 
 > ⚠️ O plano gratuito do Render "dorme" após ~15 min sem uso. A primeira requisição depois disso pode levar **cerca de 1 minuto**. Abra o link um pouco antes da apresentação.
 

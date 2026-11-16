@@ -1,6 +1,6 @@
 # Endpoints — LotaMenos API
 
-Base URL: `http://localhost:8080` (local) ou `<LINK_DEPLOY>` (Render). Documentação interativa em `/swagger-ui.html`.
+Base URL: `http://localhost:8080` (local) ou https://lota-menos-java.onrender.com (Render). Documentação interativa em `/swagger-ui.html`.
 
 Todos os erros seguem o formato `ErroResponse`:
 

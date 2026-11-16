@@ -124,4 +124,4 @@ Cole a imagem do DER gerado a partir de [`docs/der.md`](der.md) (Mermaid `erDiag
 4. **Criar o banco Oracle:** no SQL Developer, conectado ao Oracle FIAP, execute como script (F5) `database/01_ddl.sql` e, em seguida, `database/02_dml.sql`.
 5. **Rodar com Oracle:** em *Environment variables*, defina `DB_USER=RMxxxxx;DB_PASSWORD=suaSenha` e deixe o perfil vazio → Run.
 6. **Testes:** `mvnw.cmd test`.
-7. **Deploy:** link `<LINK_DEPLOY>` (Render, Docker). O primeiro acesso após inatividade pode levar ~1 minuto.
+7. **Deploy:** link https://lota-menos-java.onrender.com (Render, Docker). O primeiro acesso após inatividade pode levar ~1 minuto.
