@@ -10,13 +10,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
-/**
- * Metadados do Swagger / OpenAPI.
- * O servidor relativo "/" faz o "Try it out" funcionar tanto local (http) quanto no Render (https).
- */
 @Configuration
 public class OpenApiConfig {
-
     @Bean
     public OpenAPI lotaMenosOpenApi() {
         return new OpenAPI()

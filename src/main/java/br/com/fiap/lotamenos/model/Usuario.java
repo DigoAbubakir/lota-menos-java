@@ -12,14 +12,10 @@ import jakarta.persistence.UniqueConstraint;
 
 import java.time.LocalDateTime;
 
-/**
- * Usuário do LotaMenos (tabela T_LM_USUARIO). Dados sempre fictícios.
- */
 @Entity
 @Table(name = "T_LM_USUARIO",
         uniqueConstraints = @UniqueConstraint(name = "UK_LM_USUARIO_EMAIL", columnNames = "DS_EMAIL"))
 public class Usuario {
-
     public static final double REPUTACAO_INICIAL = 1.0;
     public static final double REPUTACAO_MINIMA = 0.3;
     public static final double REPUTACAO_MAXIMA = 1.5;
@@ -39,7 +35,6 @@ public class Usuario {
     @Column(name = "DS_PERFIL", nullable = false, length = 25)
     private PerfilUsuario perfil;
 
-    /** Peso dos relatos do usuário (0.3 a 1.5). Aumenta com relatos coerentes. */
     @Column(name = "VL_REPUTACAO", nullable = false)
     private Double reputacao = REPUTACAO_INICIAL;
 

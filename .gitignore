@@ -1,17 +1,14 @@
-# Maven
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-# IntelliJ IDEA
 .idea/
 *.iws
 *.iml
 *.ipr
 out/
 
-# Eclipse / VS Code
 .apt_generated
 .classpath
 .factorypath
@@ -21,14 +18,11 @@ out/
 .sts4-cache
 .vscode/
 
-# Sistema
 .DS_Store
 Thumbs.db
 
-# Logs
 *.log
 
-# Segredos (NUNCA versionar credenciais)
 .env
 .env.*
 *.env

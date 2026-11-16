@@ -21,19 +21,9 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-/**
- * Regras das estações.
- * <ul>
- *   <li>O nome da estação é único (sem diferenciar maiúsculas/minúsculas).</li>
- *   <li>Lotação atual: só para estações da Linha 3 (recorte); usa o Índice LotaMenos de agora
- *       ({@link LotacaoBO}), combinando histórico e relatos dos últimos 30 min.</li>
- *   <li>Excluir uma estação com relatos, histórico ou consultas vinculados gera conflito (409).</li>
- * </ul>
- */
 @Service
 @Transactional(readOnly = true)
 public class EstacaoBO {
-
     private final EstacaoDAO estacaoDAO;
     private final LinhaDAO linhaDAO;
     private final LinhaEstacaoDAO linhaEstacaoDAO;
@@ -83,10 +73,9 @@ public class EstacaoBO {
     public void excluir(Long id) {
         Estacao estacao = buscarEntidade(id);
         estacaoDAO.delete(estacao);
-        estacaoDAO.flush(); // FK violada → DataIntegrityViolationException (409)
+        estacaoDAO.flush();
     }
 
-    /** Índice LotaMenos e nível da estação agora, no sentido informado. */
     public LotacaoAtualResponse lotacaoAtual(Long id, Sentido sentido) {
         Estacao estacao = buscarEntidade(id);
         Linha linha3 = linhaDAO.findByNumero(LinhaBO.NUMERO_LINHA_RECORTE)

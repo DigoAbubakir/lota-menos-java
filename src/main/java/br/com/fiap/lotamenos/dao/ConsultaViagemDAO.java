@@ -8,11 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Acesso a dados da tabela T_LM_CONSULTA_VIAGEM.
- */
 public interface ConsultaViagemDAO extends JpaRepository<ConsultaViagem, Long> {
-
     @Query("""
             select c from ConsultaViagem c
             join fetch c.usuario join fetch c.origem join fetch c.destino left join fetch c.estacaoCritica
@@ -22,7 +18,6 @@ public interface ConsultaViagemDAO extends JpaRepository<ConsultaViagem, Long> {
 
     long countBySugestaoAceitaTrue();
 
-    /** Média de (índice desejado − índice sugerido) nas sugestões aceitas. */
     @Query("select avg(c.indiceDesejado - c.indiceSugerido) from ConsultaViagem c where c.sugestaoAceita = true")
     Double mediaReducaoNasAceitas();
 

@@ -30,7 +30,6 @@ import java.util.List;
 @RequestMapping("/viagens")
 @Tag(name = "Viagens", description = "Planejamento da janela ideal de saída e registro do aceite da sugestão")
 public class ViagemController {
-
     private final ViagemBO viagemBO;
 
     public ViagemController(ViagemBO viagemBO) {

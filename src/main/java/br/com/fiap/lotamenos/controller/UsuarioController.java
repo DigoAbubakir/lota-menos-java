@@ -28,7 +28,6 @@ import java.util.List;
 @RequestMapping("/usuarios")
 @Tag(name = "Usuários", description = "Passageiros (dados fictícios). Perfis IDOSO e MOBILIDADE_REDUZIDA ativam a regra de acessibilidade")
 public class UsuarioController {
-
     private final UsuarioBO usuarioBO;
 
     public UsuarioController(UsuarioBO usuarioBO) {

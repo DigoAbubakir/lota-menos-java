@@ -11,21 +11,9 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * <b>Indicador de impacto</b> da CitizenTech (Ficha do projeto).
- * <ul>
- *   <li>totalConsultas e totalSugestoesAceitas;</li>
- *   <li>percentualAceitas = aceitas ÷ total de consultas × 100 (0 se não houver consultas);</li>
- *   <li>reducaoMediaPontos = média de (índice desejado − índice sugerido) nas sugestões aceitas
- *       — quantos pontos de lotação o cidadão deixou de enfrentar (0 se não houver aceitas);</li>
- *   <li>totalRelatos;</li>
- *   <li>usuariosAtivos = usuários distintos com relato OU consulta nos últimos 30 dias.</li>
- * </ul>
- */
 @Service
 @Transactional(readOnly = true)
 public class ImpactoBO {
-
     public static final int DIAS_USUARIO_ATIVO = 30;
 
     private final ConsultaViagemDAO consultaDAO;

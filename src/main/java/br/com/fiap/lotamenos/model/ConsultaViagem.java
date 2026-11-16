@@ -16,14 +16,9 @@ import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-/**
- * Consulta de planejamento de viagem e a sugestão de horário dada pela API
- * (tabela T_LM_CONSULTA_VIAGEM). Base do indicador de impacto.
- */
 @Entity
 @Table(name = "T_LM_CONSULTA_VIAGEM")
 public class ConsultaViagem {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_CONSULTA")
@@ -45,15 +40,12 @@ public class ConsultaViagem {
     @Column(name = "DS_SENTIDO", nullable = false, length = 20)
     private Sentido sentido;
 
-    /** Data da viagem planejada. */
     @Column(name = "DT_VIAGEM", nullable = false)
     private LocalDate dataViagem;
 
-    /** "HH:mm" */
     @Column(name = "HR_DESEJADO", nullable = false, length = 5)
     private String horarioDesejado;
 
-    /** "HH:mm" */
     @Column(name = "HR_SUGERIDO", nullable = false, length = 5)
     private String horarioSugerido;
 
@@ -67,7 +59,6 @@ public class ConsultaViagem {
     @JoinColumn(name = "ID_ESTACAO_CRITICA", foreignKey = @ForeignKey(name = "FK_LM_CON_CRITICA"))
     private Estacao estacaoCritica;
 
-    /** true = aceitou, false = recusou, null = ainda não respondeu. */
     @Column(name = "ST_SUGESTAO_ACEITA")
     private Boolean sugestaoAceita;
 

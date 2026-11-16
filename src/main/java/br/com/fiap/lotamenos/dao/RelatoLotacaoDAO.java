@@ -9,12 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Acesso a dados da tabela T_LM_RELATO_LOTACAO.
- */
 public interface RelatoLotacaoDAO extends JpaRepository<RelatoLotacao, Long> {
-
-    /** Relatos de uma estação/linha/sentido num intervalo (já com o usuário, para usar a reputação). */
     @Query("""
             select r from RelatoLotacao r join fetch r.usuario
             where r.estacao.id = :estacaoId and r.linha.id = :linhaId and r.sentido = :sentido
@@ -26,7 +21,6 @@ public interface RelatoLotacaoDAO extends JpaRepository<RelatoLotacao, Long> {
                                        @Param("inicio") LocalDateTime inicio,
                                        @Param("fim") LocalDateTime fim);
 
-    /** Relatos de todas as estações de uma linha/sentido num intervalo (uma consulta só). */
     @Query("""
             select r from RelatoLotacao r join fetch r.usuario join fetch r.estacao
             where r.linha.id = :linhaId and r.sentido = :sentido
@@ -37,7 +31,6 @@ public interface RelatoLotacaoDAO extends JpaRepository<RelatoLotacao, Long> {
                                               @Param("inicio") LocalDateTime inicio,
                                               @Param("fim") LocalDateTime fim);
 
-    /** Antispam: existe relato do usuário na estação estritamente dentro do intervalo? */
     @Query("""
             select count(r) > 0 from RelatoLotacao r
             where r.usuario.id = :usuarioId and r.estacao.id = :estacaoId
@@ -48,7 +41,6 @@ public interface RelatoLotacaoDAO extends JpaRepository<RelatoLotacao, Long> {
                                     @Param("inicio") LocalDateTime inicio,
                                     @Param("fim") LocalDateTime fim);
 
-    /** Listagem com filtro opcional de estação e data mínima. */
     @Query("""
             select r from RelatoLotacao r join fetch r.usuario join fetch r.estacao join fetch r.linha
             where (:estacaoId is null or r.estacao.id = :estacaoId)

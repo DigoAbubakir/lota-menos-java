@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class GeradorHistoricoSimuladoTest {
-
     private static int k(String hhmm) {
         int minutos = Integer.parseInt(hhmm.substring(0, 2)) * 60 + Integer.parseInt(hhmm.substring(3));
         return (minutos - 300) / 15;
@@ -24,11 +23,11 @@ class GeradorHistoricoSimuladoTest {
     @Test
     @DisplayName("Pico da manhã (07:30, sentido Barra Funda): centro 85–98, extremo leste 60–75")
     void picoManha() {
-        for (int ordem = 6; ordem <= 11; ordem++) { // Sé .. Tatuapé
+        for (int ordem = 6; ordem <= 11; ordem++) {
             assertThat(GeradorHistoricoSimulado.indice(ordem, Sentido.SENTIDO_BARRA_FUNDA, TipoDia.UTIL, k("07:30")))
                     .isBetween(85, 100);
         }
-        for (int ordem = 17; ordem <= 18; ordem++) { // Artur Alvim, Itaquera
+        for (int ordem = 17; ordem <= 18; ordem++) {
             assertThat(GeradorHistoricoSimulado.indice(ordem, Sentido.SENTIDO_BARRA_FUNDA, TipoDia.UTIL, k("07:30")))
                     .isBetween(60, 75);
         }

@@ -38,17 +38,11 @@ import java.util.Set;
 import static br.com.fiap.lotamenos.model.Sentido.SENTIDO_BARRA_FUNDA;
 import static br.com.fiap.lotamenos.model.Sentido.SENTIDO_ITAQUERA;
 
-/**
- * Popula o H2 do perfil dev com os MESMOS dados de {@code database/02_dml.sql}.
- * Não roda no perfil padrão (Oracle), onde os dados vêm dos scripts SQL.
- */
 @Component
 @Profile("dev")
 public class DevDataSeeder implements CommandLineRunner {
-
     private static final Logger log = LoggerFactory.getLogger(DevDataSeeder.class);
 
-    /** Estações da Linha 3 em ordem (1 = Palmeiras-Barra Funda ... 18 = Corinthians-Itaquera). */
     public static final List<String> ESTACOES_LINHA_3 = List.of(
             "Palmeiras-Barra Funda", "Marechal Deodoro", "Santa Cecília", "República", "Anhangabaú", "Sé",
             "Pedro II", "Brás", "Bresser-Mooca", "Belém", "Tatuapé", "Carrão", "Penha", "Vila Matilde",
@@ -87,7 +81,6 @@ public class DevDataSeeder implements CommandLineRunner {
         }
         LocalDateTime agora = LocalDateTime.now(clock).truncatedTo(ChronoUnit.SECONDS);
 
-        // ---------------------------------------------------------------- linhas
         Linha l1 = linhaDAO.save(new Linha(1, "Azul", "#0455A1", Operadora.METRO));
         Linha l3 = linhaDAO.save(new Linha(3, "Vermelha", "#EE372F", Operadora.METRO));
         Linha l7 = linhaDAO.save(new Linha(7, "Rubi", "#CA016B", Operadora.CPTM));
@@ -95,7 +88,6 @@ public class DevDataSeeder implements CommandLineRunner {
         Linha l11 = linhaDAO.save(new Linha(11, "Coral", "#F04E23", Operadora.CPTM));
         Linha l12 = linhaDAO.save(new Linha(12, "Safira", "#083E89", Operadora.CPTM));
 
-        // ---------------------------------------------------------------- estações da Linha 3
         Map<String, Estacao> est = new LinkedHashMap<>();
         for (int i = 0; i < ESTACOES_LINHA_3.size(); i++) {
             String nome = ESTACOES_LINHA_3.get(i);
@@ -104,7 +96,6 @@ public class DevDataSeeder implements CommandLineRunner {
             linhaEstacaoDAO.save(new LinhaEstacao(l3, e, i + 1));
         }
 
-        // ---------------------------------------------------------------- integrações (pontos de conexão)
         linhaEstacaoDAO.save(new LinhaEstacao(l1, est.get("Sé"), 1));
         linhaEstacaoDAO.save(new LinhaEstacao(l7, est.get("Palmeiras-Barra Funda"), 1));
         linhaEstacaoDAO.save(new LinhaEstacao(l10, est.get("Brás"), 1));
@@ -114,7 +105,6 @@ public class DevDataSeeder implements CommandLineRunner {
         linhaEstacaoDAO.save(new LinhaEstacao(l12, est.get("Brás"), 1));
         linhaEstacaoDAO.save(new LinhaEstacao(l12, est.get("Tatuapé"), 2));
 
-        // ---------------------------------------------------------------- usuários fictícios
         Usuario carlos = usuario("Carlos Mendes", "carlos.mendes@exemplo.com", PerfilUsuario.TRABALHADOR, 1.20, agora.minusDays(60));
         Usuario maria = usuario("Dona Maria Aparecida", "maria.aparecida@exemplo.com", PerfilUsuario.IDOSO, 1.00, agora.minusDays(45));
         Usuario juliana = usuario("Juliana Rocha", "juliana.rocha@exemplo.com", PerfilUsuario.MOBILIDADE_REDUZIDA, 1.10, agora.minusDays(40));
@@ -122,7 +112,6 @@ public class DevDataSeeder implements CommandLineRunner {
         Usuario ana = usuario("Ana Souza", "ana.souza@exemplo.com", PerfilUsuario.TRABALHADOR, 1.30, agora.minusDays(20));
         Usuario roberto = usuario("Roberto Alves", "roberto.alves@exemplo.com", PerfilUsuario.TRABALHADOR, 1.05, agora.minusDays(10));
 
-        // ---------------------------------------------------------------- histórico simulado (8.208 registros)
         List<HistoricoLotacao> historico = new ArrayList<>();
         for (int ordem = 1; ordem <= ESTACOES_LINHA_3.size(); ordem++) {
             Estacao e = est.get(ESTACOES_LINHA_3.get(ordem - 1));
@@ -137,7 +126,6 @@ public class DevDataSeeder implements CommandLineRunner {
         }
         historicoDAO.saveAll(historico);
 
-        // ---------------------------------------------------------------- relatos (relativos a agora)
         relato(carlos, est.get("Artur Alvim"), l3, SENTIDO_BARRA_FUNDA, NivelLotacao.CHEIO, agora.minusMinutes(3));
         relato(ana, est.get("Brás"), l3, SENTIDO_BARRA_FUNDA, NivelLotacao.LOTADO, agora.minusMinutes(5));
         relato(roberto, est.get("Tatuapé"), l3, SENTIDO_BARRA_FUNDA, NivelLotacao.LOTADO, agora.minusMinutes(8));
@@ -151,7 +139,6 @@ public class DevDataSeeder implements CommandLineRunner {
         relato(juliana, est.get("Sé"), l3, SENTIDO_BARRA_FUNDA, NivelLotacao.LOTADO, agora.minusMinutes(60));
         relato(maria, est.get("Santa Cecília"), l3, SENTIDO_ITAQUERA, NivelLotacao.VAZIO, agora.minusMinutes(120));
 
-        // ---------------------------------------------------------------- consultas de viagem
         consulta(carlos, est.get("Artur Alvim"), est.get("Sé"), SENTIDO_BARRA_FUNDA, "07:00", "06:00", 96, 50, est.get("Brás"), true, agora.minusDays(5));
         consulta(maria, est.get("Penha"), est.get("República"), SENTIDO_BARRA_FUNDA, "07:30", "06:15", 94, 55, est.get("Brás"), true, agora.minusDays(4));
         consulta(juliana, est.get("Tatuapé"), est.get("Anhangabaú"), SENTIDO_BARRA_FUNDA, "08:00", "06:30", 93, 60, est.get("Brás"), null, agora.minusDays(3));

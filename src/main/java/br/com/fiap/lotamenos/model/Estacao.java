@@ -8,14 +8,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
-/**
- * Estação (tabela T_LM_ESTACAO). Os booleanos são gravados como NUMBER(1) no Oracle.
- */
 @Entity
 @Table(name = "T_LM_ESTACAO",
         uniqueConstraints = @UniqueConstraint(name = "UK_LM_ESTACAO_NOME", columnNames = "NM_ESTACAO"))
 public class Estacao {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_ESTACAO")

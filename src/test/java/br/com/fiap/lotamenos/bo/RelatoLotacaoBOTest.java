@@ -45,7 +45,6 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 class RelatoLotacaoBOTest {
-
     private static final ZoneId SP = ZoneId.of("America/Sao_Paulo");
     private static final LocalDateTime AGORA = LocalDateTime.of(2026, 11, 17, 7, 0);
 
@@ -133,8 +132,8 @@ class RelatoLotacaoBOTest {
         assertThat(RelatoLotacaoBO.novaReputacao(1.48, 95, 90)).isEqualTo(1.5);
         assertThat(RelatoLotacaoBO.novaReputacao(0.3, 95, 20)).isEqualTo(0.3);
         assertThat(RelatoLotacaoBO.novaReputacao(0.35, 95, 20)).isEqualTo(0.3);
-        assertThat(RelatoLotacaoBO.novaReputacao(1.0, 75, 55)).isEqualTo(1.05); // diferença exatamente 20
-        assertThat(RelatoLotacaoBO.novaReputacao(1.0, 75, 54)).isEqualTo(0.9);  // diferença 21
+        assertThat(RelatoLotacaoBO.novaReputacao(1.0, 75, 55)).isEqualTo(1.05);
+        assertThat(RelatoLotacaoBO.novaReputacao(1.0, 75, 54)).isEqualTo(0.9);
     }
 
     @Test

@@ -40,9 +40,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 class LotacaoBOTest {
-
     private static final ZoneId SP = ZoneId.of("America/Sao_Paulo");
-    /** Terça-feira, 17/11/2026, 07:00 em São Paulo. */
+
     private static final LocalDateTime AGORA = LocalDateTime.of(2026, 11, 17, 7, 0);
 
     @Mock
@@ -130,7 +129,7 @@ class LotacaoBOTest {
     void decaimento() {
         historico(60);
         relatos(relato(1.0, NivelLotacao.LOTADO, 15));
-        // peso 0.5 → w = 0.075 → 60×0.925 + 95×0.075 = 62.625 → 63
+
         assertThat(bo.calcularIndice(bras, linha3, Sentido.SENTIDO_BARRA_FUNDA, AGORA)).isEqualTo(63);
 
         relatos(relato(1.0, NivelLotacao.LOTADO, 30));
@@ -142,7 +141,7 @@ class LotacaoBOTest {
     void reputacaoPondera() {
         historico(60);
         relatos(relato(1.5, NivelLotacao.VAZIO, 0), relato(0.3, NivelLotacao.LOTADO, 0));
-        // média = (1.5×20 + 0.3×95)/1.8 = 32.5; w = 0.27 → 60×0.73 + 32.5×0.27 = 52.575 → 53
+
         assertThat(bo.calcularIndice(bras, linha3, Sentido.SENTIDO_BARRA_FUNDA, AGORA)).isEqualTo(53);
     }
 
@@ -155,7 +154,7 @@ class LotacaoBOTest {
             muitos.add(relato(1.5, NivelLotacao.LOTADO, 0));
         }
         relatos(muitos.toArray(new RelatoLotacao[0]));
-        // w = min(0.6, 0.15×15) = 0.6 → 20×0.4 + 95×0.6 = 65
+
         ResultadoIndice r = bo.calcularDetalhado(bras, linha3, Sentido.SENTIDO_BARRA_FUNDA, AGORA);
         assertThat(r.indice()).isEqualTo(65);
         assertThat(r.pesoRelatos()).isEqualTo(0.6);

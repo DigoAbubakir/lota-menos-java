@@ -13,20 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Regras das linhas.
- * <ul>
- *   <li>O número da linha é único (não pode haver duas "Linha 3").</li>
- *   <li>A Linha 3-Vermelha ({@link #NUMERO_LINHA_RECORTE}) é o recorte do projeto: planejamento de viagem
- *       e relatos só funcionam nela.</li>
- *   <li>Excluir uma linha com estações/histórico/relatos vinculados gera conflito (409).</li>
- * </ul>
- */
 @Service
 @Transactional(readOnly = true)
 public class LinhaBO {
-
-    /** Número da linha que é o recorte do projeto (Linha 3-Vermelha). */
     public static final int NUMERO_LINHA_RECORTE = 3;
 
     private final LinhaDAO linhaDAO;
@@ -45,7 +34,6 @@ public class LinhaBO {
         return LinhaResponse.de(buscarEntidade(id));
     }
 
-    /** Estações da linha na ordem de percurso. */
     public List<EstacaoNaLinhaResponse> listarEstacoes(Long id) {
         buscarEntidade(id);
         return linhaEstacaoDAO.listarPorLinhaEmOrdem(id).stream().map(EstacaoNaLinhaResponse::de).toList();
@@ -77,7 +65,7 @@ public class LinhaBO {
     public void excluir(Long id) {
         Linha linha = buscarEntidade(id);
         linhaDAO.delete(linha);
-        linhaDAO.flush(); // força a checagem de FK aqui → DataIntegrityViolationException (409)
+        linhaDAO.flush();
     }
 
     private Linha buscarEntidade(Long id) {

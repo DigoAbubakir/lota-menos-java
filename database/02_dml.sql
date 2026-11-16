@@ -1,13 +1,3 @@
--- =====================================================================
--- LotaMenos - DML (Oracle FIAP) - DADOS SIMULADOS para fins acadêmicos
--- Executar DEPOIS do 01_ddl.sql, no SQL Developer como SCRIPT (F5).
--- Dica: em Ferramentas > Preferências > Ambiente, deixe a Codificação em UTF-8
--- para os acentos (Sé, Tatuapé...) gravarem corretamente.
--- =====================================================================
-
--- ---------------------------------------------------------------------
--- Linhas
--- ---------------------------------------------------------------------
 INSERT INTO T_LM_LINHA (NR_LINHA, NM_LINHA, DS_COR, DS_OPERADORA) VALUES (1,  'Azul',     '#0455A1', 'METRO');
 INSERT INTO T_LM_LINHA (NR_LINHA, NM_LINHA, DS_COR, DS_OPERADORA) VALUES (3,  'Vermelha', '#EE372F', 'METRO');
 INSERT INTO T_LM_LINHA (NR_LINHA, NM_LINHA, DS_COR, DS_OPERADORA) VALUES (7,  'Rubi',     '#CA016B', 'CPTM');
@@ -15,9 +5,6 @@ INSERT INTO T_LM_LINHA (NR_LINHA, NM_LINHA, DS_COR, DS_OPERADORA) VALUES (10, 'T
 INSERT INTO T_LM_LINHA (NR_LINHA, NM_LINHA, DS_COR, DS_OPERADORA) VALUES (11, 'Coral',    '#F04E23', 'CPTM');
 INSERT INTO T_LM_LINHA (NR_LINHA, NM_LINHA, DS_COR, DS_OPERADORA) VALUES (12, 'Safira',   '#083E89', 'CPTM');
 
--- ---------------------------------------------------------------------
--- Estações da Linha 3-Vermelha (ST_INTEGRACAO = 1 nos pontos de conexão do recorte)
--- ---------------------------------------------------------------------
 INSERT INTO T_LM_ESTACAO (NM_ESTACAO, ST_INTEGRACAO, ST_ATIVA) VALUES ('Palmeiras-Barra Funda', 1, 1);
 INSERT INTO T_LM_ESTACAO (NM_ESTACAO, ST_INTEGRACAO, ST_ATIVA) VALUES ('Marechal Deodoro',      0, 1);
 INSERT INTO T_LM_ESTACAO (NM_ESTACAO, ST_INTEGRACAO, ST_ATIVA) VALUES ('Santa Cecília',         0, 1);
@@ -37,9 +24,6 @@ INSERT INTO T_LM_ESTACAO (NM_ESTACAO, ST_INTEGRACAO, ST_ATIVA) VALUES ('Patriarc
 INSERT INTO T_LM_ESTACAO (NM_ESTACAO, ST_INTEGRACAO, ST_ATIVA) VALUES ('Artur Alvim',           0, 1);
 INSERT INTO T_LM_ESTACAO (NM_ESTACAO, ST_INTEGRACAO, ST_ATIVA) VALUES ('Corinthians-Itaquera',  1, 1);
 
--- ---------------------------------------------------------------------
--- Linha 3: estações em ordem (1 = Palmeiras-Barra Funda ... 18 = Corinthians-Itaquera)
--- ---------------------------------------------------------------------
 DECLARE
     TYPE t_nomes IS TABLE OF VARCHAR2(60);
     v_nomes t_nomes := t_nomes('Palmeiras-Barra Funda', 'Marechal Deodoro', 'Santa Cecília', 'República',
@@ -56,9 +40,6 @@ BEGIN
 END;
 /
 
--- ---------------------------------------------------------------------
--- Integrações (pontos de conexão do recorte; ordem sequencial simples)
--- ---------------------------------------------------------------------
 INSERT INTO T_LM_LINHA_ESTACAO (ID_LINHA, ID_ESTACAO, NR_ORDEM)
 SELECT l.ID_LINHA, e.ID_ESTACAO, 1 FROM T_LM_LINHA l, T_LM_ESTACAO e WHERE l.NR_LINHA = 1  AND e.NM_ESTACAO = 'Sé';
 INSERT INTO T_LM_LINHA_ESTACAO (ID_LINHA, ID_ESTACAO, NR_ORDEM)
@@ -76,12 +57,6 @@ SELECT l.ID_LINHA, e.ID_ESTACAO, 1 FROM T_LM_LINHA l, T_LM_ESTACAO e WHERE l.NR_
 INSERT INTO T_LM_LINHA_ESTACAO (ID_LINHA, ID_ESTACAO, NR_ORDEM)
 SELECT l.ID_LINHA, e.ID_ESTACAO, 2 FROM T_LM_LINHA l, T_LM_ESTACAO e WHERE l.NR_LINHA = 12 AND e.NM_ESTACAO = 'Tatuapé';
 
--- ---------------------------------------------------------------------
--- Usuários fictícios (e-mails @exemplo.com)
--- Horário de Brasília (UTC-3 fixo, sem horário de verão desde 2019), independente do fuso do servidor.
--- Obs.: não usar 'America/Sao_Paulo' aqui: a tabela de fusos do Oracle da FIAP ainda aplica horário de verão.
---   CAST(SYSTIMESTAMP AT TIME ZONE '-03:00' AS TIMESTAMP)
--- ---------------------------------------------------------------------
 INSERT INTO T_LM_USUARIO (NM_USUARIO, DS_EMAIL, DS_PERFIL, VL_REPUTACAO, DT_CADASTRO)
 VALUES ('Carlos Mendes', 'carlos.mendes@exemplo.com', 'TRABALHADOR', 1.20,
         CAST(SYSTIMESTAMP AT TIME ZONE '-03:00' AS TIMESTAMP) - INTERVAL '60' DAY);
@@ -101,23 +76,13 @@ INSERT INTO T_LM_USUARIO (NM_USUARIO, DS_EMAIL, DS_PERFIL, VL_REPUTACAO, DT_CADA
 VALUES ('Roberto Alves', 'roberto.alves@exemplo.com', 'TRABALHADOR', 1.05,
         CAST(SYSTIMESTAMP AT TIME ZONE '-03:00' AS TIMESTAMP) - INTERVAL '10' DAY);
 
--- ---------------------------------------------------------------------
--- Histórico SIMULADO: 18 estações x 2 sentidos x 3 tipos de dia x 76 faixas (05:00-23:45) = 8.208 linhas
--- Mesma fórmula da classe Java config/GeradorHistoricoSimulado (resultados idênticos ao H2).
---   * Manhã útil (05:00-08:45), sentido Barra Funda: peso da estação x curva no tempo
---     (máximo entre Tatuapé e Sé: 85-98; extremo leste 60-75; auge 07:15-07:45).
---   * Tarde útil (17:00-19:45), sentido Itaquera: máximo entre Sé e Tatuapé, caindo rumo ao leste.
---   * Contrafluxo e entrepico: 35-55. 20:00-20:45: transição. Após 21:00: 15-35.
---   * Sábado = 55% do dia útil; domingo = 40%.
---   * Variação determinística: MOD(ordem*7 + faixa*3, 9) - 4.
--- ---------------------------------------------------------------------
 DECLARE
     TYPE t_int IS TABLE OF PLS_INTEGER INDEX BY PLS_INTEGER;
     TYPE t_txt IS TABLE OF VARCHAR2(20) INDEX BY PLS_INTEGER;
-    v_peso_manha t_int;   -- por ordem 1..18
-    v_peso_tarde t_int;   -- por ordem 1..18
-    v_curva_manha t_int;  -- faixas k = 0..15 (05:00-08:45)
-    v_curva_tarde t_int;  -- faixas j = 0..11 (17:00-19:45)
+    v_peso_manha t_int;
+    v_peso_tarde t_int;
+    v_curva_manha t_int;
+    v_curva_tarde t_int;
     v_sentido t_txt;
     v_tipo t_txt;
     v_fator t_int;
@@ -155,26 +120,26 @@ BEGIN
             FOR t IN 1 .. 3 LOOP
                 FOR k IN 0 .. 75 LOOP
                     v_min := 300 + k * 15;
-                    IF v_min < 540 THEN                       -- 05:00-08:45
+                    IF v_min < 540 THEN
                         IF s = 1 THEN
                             v_base := GREATEST(20, ROUND(96 * v_peso_manha(le.NR_ORDEM) * v_curva_manha(k) / 10000));
                         ELSIF v_min < 360 THEN
                             v_base := 20 + v_bonus;
                         ELSE
-                            v_base := 40 + v_bonus;           -- contrafluxo
+                            v_base := 40 + v_bonus;
                         END IF;
-                    ELSIF v_min < 1020 THEN                   -- entrepico 09:00-16:45
+                    ELSIF v_min < 1020 THEN
                         v_base := 40 + v_bonus;
-                    ELSIF v_min < 1200 THEN                   -- 17:00-19:45
+                    ELSIF v_min < 1200 THEN
                         IF s = 2 THEN
                             v_base := GREATEST(40 + v_bonus,
                                                ROUND(96 * v_peso_tarde(le.NR_ORDEM) * v_curva_tarde(k - 48) / 10000));
                         ELSE
-                            v_base := 40 + v_bonus;           -- contrafluxo
+                            v_base := 40 + v_bonus;
                         END IF;
-                    ELSIF v_min < 1260 THEN                   -- 20:00-20:45
+                    ELSIF v_min < 1260 THEN
                         v_base := 30 + v_bonus;
-                    ELSE                                      -- noite
+                    ELSE
                         v_base := 19 + v_bonus;
                     END IF;
 
@@ -192,9 +157,6 @@ BEGIN
 END;
 /
 
--- ---------------------------------------------------------------------
--- Relatos de exemplo (relativos ao momento da carga)
--- ---------------------------------------------------------------------
 DECLARE
     v_agora TIMESTAMP := CAST(SYSTIMESTAMP AT TIME ZONE '-03:00' AS TIMESTAMP);
 
@@ -221,9 +183,6 @@ BEGIN
 END;
 /
 
--- ---------------------------------------------------------------------
--- Consultas de viagem de exemplo (algumas com sugestão aceita)
--- ---------------------------------------------------------------------
 DECLARE
     v_agora TIMESTAMP := CAST(SYSTIMESTAMP AT TIME ZONE '-03:00' AS TIMESTAMP);
 

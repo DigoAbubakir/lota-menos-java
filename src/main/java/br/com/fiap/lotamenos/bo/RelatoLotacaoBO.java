@@ -24,25 +24,9 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-/**
- * Regras dos relatos de lotação em tempo real e da reputação dos usuários.
- * <ul>
- *   <li><b>Recorte:</b> relatos só na Linha 3-Vermelha (se {@code linhaId} não vier, assume a Linha 3) e a
- *       estação precisa pertencer à linha → senão {@code EstacaoForaDoRecorteException} (422).</li>
- *   <li><b>Data/hora:</b> padrão = agora; não pode estar no futuro (tolerância de 1 min para diferença de
- *       relógio) → {@code RegraNegocioException} (422).</li>
- *   <li><b>Antispam:</b> o mesmo usuário não pode relatar a mesma estação com menos de 10 min de diferença
- *       → {@code RelatoDuplicadoException} (409).</li>
- *   <li><b>Reputação:</b> antes de salvar, calcula o índice atual da estação SEM este relato. Se
- *       |valor do nível relatado − índice atual| ≤ 20, o relato é coerente: reputação +0.05 (máx. 1.5);
- *       senão −0.10 (mín. 0.3). Usuários com boa reputação pesam mais no Índice LotaMenos.</li>
- *   <li><b>Correção (PUT):</b> altera só nível e sentido; não recalcula reputação nem antispam.</li>
- * </ul>
- */
 @Service
 @Transactional(readOnly = true)
 public class RelatoLotacaoBO {
-
     public static final int INTERVALO_ANTISPAM_MINUTOS = 10;
     public static final int TOLERANCIA_COERENCIA = 20;
     public static final double BONUS_REPUTACAO = 0.05;
@@ -67,7 +51,6 @@ public class RelatoLotacaoBO {
         this.clock = clock;
     }
 
-    /** Lista relatos, opcionalmente filtrando por estação e pelos últimos N minutos. */
     public List<RelatoResponse> listar(Long estacaoId, Integer ultimosMinutos) {
         LocalDateTime desde = LocalDateTime.of(1900, 1, 1, 0, 0);
         if (ultimosMinutos != null) {
@@ -108,7 +91,6 @@ public class RelatoLotacaoBO {
                     + " há menos de " + INTERVALO_ANTISPAM_MINUTOS + " minutos. Aguarde para relatar novamente.");
         }
 
-        // Reputação: compara o relato com o índice atual calculado SEM ele (o relato ainda não foi salvo).
         int indiceAtual = lotacaoBO.calcularIndice(estacao, linha, req.sentido(), agora);
         usuario.setReputacao(novaReputacao(usuario.getReputacao(), req.nivel().getValor(), indiceAtual));
         usuarioDAO.save(usuario);
@@ -130,7 +112,6 @@ public class RelatoLotacaoBO {
         relatoDAO.delete(buscarEntidade(id));
     }
 
-    /** +0.05 se o relato for coerente com o índice atual (diferença ≤ 20), senão −0.10; sempre entre 0.3 e 1.5. */
     static double novaReputacao(double reputacaoAtual, int valorRelatado, int indiceAtual) {
         double ajuste = Math.abs(valorRelatado - indiceAtual) <= TOLERANCIA_COERENCIA
                 ? BONUS_REPUTACAO

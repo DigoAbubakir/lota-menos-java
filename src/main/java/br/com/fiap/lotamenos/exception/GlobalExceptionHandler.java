@@ -22,13 +22,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Tratamento centralizado de exceções: toda resposta de erro sai no formato {@link ErroResponse},
- * com mensagem em português e sem stack trace.
- */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(RecursoNaoEncontradoException.class)
@@ -36,7 +31,6 @@ public class GlobalExceptionHandler {
         return responder(HttpStatus.NOT_FOUND, "Recurso não encontrado", ex.getMessage(), req, List.of());
     }
 
-    /** Também captura EstacaoForaDoRecorteException e JanelaInvalidaException (subclasses). */
     @ExceptionHandler(RegraNegocioException.class)
     public ResponseEntity<ErroResponse> regraNegocio(RegraNegocioException ex, HttpServletRequest req) {
         return responder(HttpStatus.UNPROCESSABLE_ENTITY, "Regra de negócio", ex.getMessage(), req, List.of());

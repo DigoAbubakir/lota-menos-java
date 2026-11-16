@@ -14,16 +14,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
-/**
- * Índice histórico de lotação por estação, linha, sentido, tipo de dia e faixa de 15 minutos
- * (tabela T_LM_HISTORICO_LOTACAO).
- */
 @Entity
 @Table(name = "T_LM_HISTORICO_LOTACAO", uniqueConstraints = @UniqueConstraint(
         name = "UK_LM_HIST_CHAVE",
         columnNames = {"ID_ESTACAO", "ID_LINHA", "DS_SENTIDO", "DS_TIPO_DIA", "HR_FAIXA"}))
 public class HistoricoLotacao {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_HISTORICO")
@@ -45,7 +40,6 @@ public class HistoricoLotacao {
     @Column(name = "DS_TIPO_DIA", nullable = false, length = 10)
     private TipoDia tipoDia;
 
-    /** Início da faixa de 15 minutos no formato "HH:mm" (ex.: "07:15"). */
     @Column(name = "HR_FAIXA", nullable = false, length = 5)
     private String faixaHorario;
 

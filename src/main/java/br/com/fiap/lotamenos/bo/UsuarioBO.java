@@ -14,20 +14,9 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-/**
- * Regras dos usuários.
- * <ul>
- *   <li>E-mail único (sem diferenciar maiúsculas/minúsculas), gravado em minúsculas.</li>
- *   <li>Todo usuário começa com reputação 1.0; ela só muda pelos relatos ({@link RelatoLotacaoBO}),
- *       nunca pelo PUT.</li>
- *   <li>A data de cadastro é definida pelo servidor.</li>
- *   <li>Excluir usuário com relatos ou consultas gera conflito (409).</li>
- * </ul>
- */
 @Service
 @Transactional(readOnly = true)
 public class UsuarioBO {
-
     private final UsuarioDAO usuarioDAO;
     private final Clock clock;
 
@@ -72,7 +61,7 @@ public class UsuarioBO {
     public void excluir(Long id) {
         Usuario usuario = buscarEntidade(id);
         usuarioDAO.delete(usuario);
-        usuarioDAO.flush(); // FK violada → DataIntegrityViolationException (409)
+        usuarioDAO.flush();
     }
 
     private Usuario buscarEntidade(Long id) {

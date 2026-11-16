@@ -10,14 +10,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
-/**
- * Linha de metrô ou trem (tabela T_LM_LINHA).
- */
 @Entity
 @Table(name = "T_LM_LINHA",
         uniqueConstraints = @UniqueConstraint(name = "UK_LM_LINHA_NUMERO", columnNames = "NR_LINHA"))
 public class Linha {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_LINHA")

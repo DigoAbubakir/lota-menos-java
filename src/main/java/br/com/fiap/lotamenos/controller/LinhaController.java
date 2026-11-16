@@ -29,7 +29,6 @@ import java.util.List;
 @RequestMapping("/linhas")
 @Tag(name = "Linhas", description = "Linhas de metrô e CPTM do recorte (Linha 3-Vermelha e conexões)")
 public class LinhaController {
-
     private final LinhaBO linhaBO;
 
     public LinhaController(LinhaBO linhaBO) {

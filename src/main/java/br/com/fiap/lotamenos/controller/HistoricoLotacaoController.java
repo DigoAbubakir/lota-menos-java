@@ -32,7 +32,6 @@ import java.util.List;
 @RequestMapping("/historicos")
 @Tag(name = "Históricos", description = "Histórico de lotação por faixa de 15 minutos (base do Índice LotaMenos)")
 public class HistoricoLotacaoController {
-
     private final HistoricoLotacaoBO historicoBO;
 
     public HistoricoLotacaoController(HistoricoLotacaoBO historicoBO) {

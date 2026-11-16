@@ -15,13 +15,9 @@ import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
 
-/**
- * Relato de lotação em tempo real enviado por um passageiro (tabela T_LM_RELATO_LOTACAO).
- */
 @Entity
 @Table(name = "T_LM_RELATO_LOTACAO")
 public class RelatoLotacao {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_RELATO")

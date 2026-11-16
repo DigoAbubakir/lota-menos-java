@@ -49,7 +49,6 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 class ViagemBOTest {
-
     private static final ZoneId SP = ZoneId.of("America/Sao_Paulo");
     private static final LocalDateTime AGORA = LocalDateTime.of(2026, 11, 16, 12, 0);
     private static final LocalDate DATA = LocalDate.of(2026, 11, 17);
@@ -65,7 +64,7 @@ class ViagemBOTest {
     private Linha linha3;
     private final List<Estacao> estacoes = new ArrayList<>();
     private final List<LinhaEstacao> linhaEstacoes = new ArrayList<>();
-    /** estacaoId → (faixa "HH:mm" → índice) */
+
     private final Map<Long, Map<String, Integer>> historico = new HashMap<>();
     private Usuario trabalhador;
     private Usuario idosa;
@@ -79,7 +78,6 @@ class ViagemBOTest {
         linha3.setId(2L);
         when(linhaDAO.findByNumero(3)).thenReturn(Optional.of(linha3));
 
-        // Linha fictícia de 5 estações: A(1) B(2) C(3) D(4) E(5)
         String[] nomes = {"A", "B", "C", "D", "E"};
         for (int i = 0; i < nomes.length; i++) {
             Estacao e = new Estacao(nomes[i], false, true);
@@ -116,7 +114,6 @@ class ViagemBOTest {
         historico.computeIfAbsent(est(estacao).getId(), k -> new HashMap<>()).put(faixa, valor);
     }
 
-    /** Preenche todas as estações em todas as faixas de 06:00 a 09:00 com o mesmo valor. */
     private void preencherTudo(int valor) {
         for (Estacao e : estacoes) {
             for (int m = 6 * 60; m <= 9 * 60; m += 15) {
@@ -143,7 +140,7 @@ class ViagemBOTest {
     @DisplayName("Índice da viagem = maior do trecho; destino fica fora do trecho")
     void estacaoCriticaEhOMaiorDoTrecho() {
         preencherTudo(40);
-        // Trecho E → B (sentido Barra Funda): E, D, C (B é o destino e não conta)
+
         indice("E", "07:00", 50);
         indice("D", "07:00", 80);
         indice("C", "07:00", 70);
@@ -154,7 +151,7 @@ class ViagemBOTest {
         assertThat(r.indiceDesejado()).isEqualTo(80);
         assertThat(r.horarioSugerido()).isEqualTo("07:15");
         assertThat(r.indiceSugerido()).isEqualTo(40);
-        assertThat(r.estacaoCritica()).isEqualTo("E"); // empate em 40 → primeira estação do trecho
+        assertThat(r.estacaoCritica()).isEqualTo("E");
         assertThat(r.reducaoPontos()).isEqualTo(40);
     }
 

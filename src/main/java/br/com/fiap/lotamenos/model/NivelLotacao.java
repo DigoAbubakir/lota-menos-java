@@ -1,9 +1,5 @@
 package br.com.fiap.lotamenos.model;
 
-/**
- * Nível de lotação, com a faixa de índice correspondente (0–100) e o valor
- * numérico usado quando um passageiro relata esse nível.
- */
 public enum NivelLotacao {
     VAZIO(0, 39, 20),
     MODERADO(40, 64, 50),
@@ -20,7 +16,6 @@ public enum NivelLotacao {
         this.valor = valor;
     }
 
-    /** Converte um índice (0–100) no nível correspondente. Valores fora da faixa são limitados. */
     public static NivelLotacao deIndice(int indice) {
         int limitado = Math.max(0, Math.min(100, indice));
         for (NivelLotacao nivel : values()) {

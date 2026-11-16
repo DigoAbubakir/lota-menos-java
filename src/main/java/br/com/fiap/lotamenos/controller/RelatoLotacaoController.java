@@ -31,7 +31,6 @@ import java.util.List;
 @RequestMapping("/relatos")
 @Tag(name = "Relatos", description = "Relatos de lotação em tempo real enviados pelos passageiros")
 public class RelatoLotacaoController {
-
     private final RelatoLotacaoBO relatoBO;
 
     public RelatoLotacaoController(RelatoLotacaoBO relatoBO) {

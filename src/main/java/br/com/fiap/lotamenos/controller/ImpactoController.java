@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/impacto")
 @Tag(name = "Impacto", description = "Indicador de impacto da CitizenTech")
 public class ImpactoController {
-
     private final ImpactoBO impactoBO;
 
     public ImpactoController(ImpactoBO impactoBO) {

@@ -19,18 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Regras do histórico de lotação (base do Índice LotaMenos).
- * <ul>
- *   <li>A estação precisa pertencer à linha informada.</li>
- *   <li>Só pode existir um registro por estação + linha + sentido + tipo de dia + faixa de 15 min.</li>
- *   <li>Índice entre 0 e 100 e faixa em múltiplos de 15 min (validado no DTO).</li>
- * </ul>
- */
 @Service
 @Transactional(readOnly = true)
 public class HistoricoLotacaoBO {
-
     private final HistoricoLotacaoDAO historicoDAO;
     private final EstacaoDAO estacaoDAO;
     private final LinhaDAO linhaDAO;

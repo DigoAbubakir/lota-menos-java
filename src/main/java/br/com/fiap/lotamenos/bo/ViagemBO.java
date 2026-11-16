@@ -31,29 +31,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * Planejamento de viagem: encontra a <b>janela ideal de saída</b>.
- * <ol>
- *   <li><b>Recorte:</b> origem e destino precisam estar na Linha 3-Vermelha (senão 422) e ser diferentes.</li>
- *   <li><b>Sentido:</b> derivado pela ordem das estações — destino com ordem menor que a origem
- *       = SENTIDO_BARRA_FUNDA; maior = SENTIDO_ITAQUERA.</li>
- *   <li><b>Lotação da viagem:</b> calcula o Índice LotaMenos de cada estação do trecho (da origem até a
- *       estação anterior ao destino). O índice da viagem é o MAIOR do trecho (ponto mais crítico),
- *       e essa estação é a {@code estacaoCritica}.</li>
- *   <li><b>Janela:</b> fim depois do início, no máximo 3 h, horário desejado dentro da janela (padrão = início)
- *       → senão {@code JanelaInvalidaException}. São testados os horários de 15 em 15 min a partir do início
- *       (fim incluído) e também o horário desejado.</li>
- *   <li><b>Escolha:</b> menor índice da viagem; empate → mais próximo do horário desejado; novo empate → mais cedo.</li>
- *   <li><b>Acessibilidade (ODS 10):</b> para IDOSO e MOBILIDADE_REDUZIDA só valem horários com nível
- *       ≤ MODERADO (índice ≤ 64). Se nenhum atender, usa o melhor disponível e marca
- *       {@code alertaAcessibilidade = true}.</li>
- *   <li>Monta uma dica em português, grava a {@code ConsultaViagem} e devolve o resultado.</li>
- * </ol>
- */
 @Service
 @Transactional(readOnly = true)
 public class ViagemBO {
-
     public static final int DURACAO_MAXIMA_JANELA_MINUTOS = 180;
 
     private final ConsultaViagemDAO consultaDAO;
@@ -75,7 +55,6 @@ public class ViagemBO {
         this.clock = clock;
     }
 
-    /** Avaliação de um horário de saída: índice da viagem e estação mais cheia do trecho. */
     record AvaliacaoHorario(LocalTime horario, int indice, Estacao estacaoCritica) {
     }
 
@@ -152,7 +131,6 @@ public class ViagemBO {
         return paraResponse(buscarEntidade(id));
     }
 
-    /** Registra se o usuário aceitou (true) ou recusou (false) a sugestão. Alimenta o indicador de impacto. */
     @Transactional
     public ViagemResponse registrarAceite(Long id, AceiteRequest req) {
         ConsultaViagem consulta = buscarEntidade(id);
@@ -165,9 +143,6 @@ public class ViagemBO {
         consultaDAO.delete(buscarEntidade(id));
     }
 
-    // ------------------------------------------------------------------ regras auxiliares
-
-    /** Destino com ordem menor que a origem → rumo a Barra Funda; maior → rumo a Itaquera. */
     static Sentido definirSentido(int ordemOrigem, int ordemDestino) {
         return ordemDestino < ordemOrigem ? Sentido.SENTIDO_BARRA_FUNDA : Sentido.SENTIDO_ITAQUERA;
     }
@@ -189,7 +164,6 @@ public class ViagemBO {
         }
     }
 
-    /** Horários de 15 em 15 min a partir do início (fim incluído) + o horário desejado. */
     static List<LocalTime> gerarHorariosCandidatos(LocalTime inicio, LocalTime fim, LocalTime desejado) {
         List<LocalTime> candidatos = new ArrayList<>();
         for (int m = HorarioUtil.minutosDoDia(inicio); m <= HorarioUtil.minutosDoDia(fim); m += HorarioUtil.MINUTOS_FAIXA) {
@@ -202,7 +176,6 @@ public class ViagemBO {
         return candidatos;
     }
 
-    /** Estações do trecho, da origem até a anterior ao destino, na ordem em que o trem passa. */
     private List<Estacao> montarTrecho(Linha linha, int ordemOrigem, int ordemDestino, Sentido sentido) {
         List<LinhaEstacao> todas = linhaEstacaoDAO.listarPorLinhaEmOrdem(linha.getId());
         List<Estacao> trecho = new ArrayList<>();
@@ -223,7 +196,6 @@ public class ViagemBO {
         return trecho;
     }
 
-    /** Índice da viagem = maior índice do trecho; em empate, vale a primeira estação (mais perto da origem). */
     static AvaliacaoHorario avaliar(LocalTime horario, List<Estacao> trecho, MapaLotacao mapa) {
         int maior = -1;
         Estacao critica = null;
@@ -237,7 +209,6 @@ public class ViagemBO {
         return new AvaliacaoHorario(horario, maior, critica);
     }
 
-    /** Menor índice; empate → mais próximo do desejado; novo empate → mais cedo. */
     static AvaliacaoHorario escolherMelhor(List<AvaliacaoHorario> opcoes, LocalTime desejado) {
         int minutosDesejado = HorarioUtil.minutosDoDia(desejado);
         return opcoes.stream()
@@ -247,7 +218,6 @@ public class ViagemBO {
                 .orElseThrow();
     }
 
-    /** Dica em linguagem simples para o cidadão. */
     static String montarDica(String horarioDesejado, String horarioSugerido, String estacaoCritica, boolean alerta) {
         String trecho = estacaoCritica != null ? " Trecho mais cheio: " + estacaoCritica + "." : "";
         String dica = horarioSugerido.equals(horarioDesejado)

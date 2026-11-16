@@ -22,15 +22,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * Sobe o contexto completo com o perfil dev (H2 + DevDataSeeder) e exercita a API via MockMvc.
- */
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("dev")
 class LotaMenosApiIntegrationTest {
-
-    /** Terça-feira (dia útil) distante de "agora", para os relatos em tempo real não interferirem. */
     private static final String DATA_UTIL = "2030-03-12";
 
     @Autowired

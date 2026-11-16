@@ -1,4 +1,3 @@
-# Blueprint opcional do Render (New > Blueprint). Também dá para criar o Web Service manualmente.
 services:
   - type: web
     name: lotamenos-api

@@ -32,7 +32,6 @@ import java.util.List;
 @RequestMapping("/estacoes")
 @Tag(name = "Estações", description = "Estações e lotação atual (Índice LotaMenos)")
 public class EstacaoController {
-
     private final EstacaoBO estacaoBO;
 
     public EstacaoController(EstacaoBO estacaoBO) {

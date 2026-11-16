@@ -12,16 +12,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
-/**
- * Associação estação ↔ linha com a ordem da estação na linha (tabela T_LM_LINHA_ESTACAO).
- */
 @Entity
 @Table(name = "T_LM_LINHA_ESTACAO", uniqueConstraints = {
         @UniqueConstraint(name = "UK_LM_LE_LINHA_ESTACAO", columnNames = {"ID_LINHA", "ID_ESTACAO"}),
         @UniqueConstraint(name = "UK_LM_LE_LINHA_ORDEM", columnNames = {"ID_LINHA", "NR_ORDEM"})
 })
 public class LinhaEstacao {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_LINHA_ESTACAO")
