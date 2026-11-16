@@ -118,7 +118,7 @@ Cole a imagem do DER gerado a partir de [`docs/der.md`](der.md) (Mermaid `erDiag
 | Swagger (springdoc-openapi) | 2.6.0 | `/swagger-ui.html` |
 
 ### 4.2 Passo a passo
-1. **Clonar o repositório:** `git clone <LINK_GITHUB>` e abrir a pasta no IntelliJ (*File → Open*).
+1. **Clonar o repositório:** `git clone https://github.com/DigoAbubakir/lota-menos-java.git` e abrir a pasta no IntelliJ (*File → Open*).
 2. **JDK 21:** *File → Project Structure → SDK → 21*.
 3. **Rodar sem banco (perfil dev):** *Run → Edit Configurations → LotaMenosApplication → Active profiles = `dev`* → Run. Acesse <http://localhost:8080>.
 4. **Criar o banco Oracle:** no SQL Developer, conectado ao Oracle FIAP, execute como script (F5) `database/01_ddl.sql` e, em seguida, `database/02_dml.sql`.

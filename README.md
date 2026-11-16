@@ -12,7 +12,7 @@
 | **Problema em uma frase** | Quem pega metrô e trem todo dia em SP não sabe quando nem onde vai estar lotado, e por isso perde tempo e viaja espremido. |
 | **Como funciona** | O usuário informa origem, destino e a janela de horário em que pode sair. A API calcula a lotação prevista de cada estação do trajeto (histórico por faixa de 15 min + relatos em tempo real dos passageiros, ponderados pela reputação de quem relata) e sugere o melhor horário de saída dentro da janela. Os passageiros também relatam a lotação em tempo real. |
 | **O que cada parte faz** | **Java** = API REST e regras de negócio (este repositório) · **Database** = modelo relacional Oracle (tabelas `T_LM_*`) · **Data Science** = modelos de previsão de lotação · **Dynamic Programming** = rota menos cheia com grafos · **Network** = rede do ponto físico de atendimento · **AR/VR** = vídeo imersivo da experiência de viagem · **Agile** = backlog e protótipos |
-| **Link do repositório** | `<LINK_GITHUB>` |
+| **Link do repositório** | https://github.com/DigoAbubakir/lota-menos-java |
 | **Indicador de impacto** | Redução média de pontos de lotação nas sugestões aceitas e % de sugestões aceitas — calculados ao vivo por `GET /impacto` |
 | **ODS conectados** | **ODS 11 – Cidades e comunidades sustentáveis:** distribui a demanda do transporte público ao longo do tempo e torna a viagem mais humana. **ODS 9 – Indústria, inovação e infraestrutura:** usa dados e participação cidadã para extrair mais da infraestrutura de trilhos que já existe. **ODS 10 – Redução das desigualdades:** idosos e pessoas com mobilidade reduzida recebem só sugestões com lotação no máximo moderada, com alerta quando isso não é possível. |
 
@@ -171,7 +171,7 @@ O `render.yaml` também permite criar o serviço via *New → Blueprint*.
 ## Subir no GitHub
 
 ```bash
-git remote add origin https://github.com/<usuario>/lotamenos-api.git
+git remote add origin https://github.com/DigoAbubakir/lota-menos-java.git
 git push -u origin main
 ```
 
