@@ -78,27 +78,28 @@ SELECT l.ID_LINHA, e.ID_ESTACAO, 2 FROM T_LM_LINHA l, T_LM_ESTACAO e WHERE l.NR_
 
 -- ---------------------------------------------------------------------
 -- Usuários fictícios (e-mails @exemplo.com)
--- Horário local de São Paulo, independente do fuso do servidor Oracle:
---   CAST(SYSTIMESTAMP AT TIME ZONE 'America/Sao_Paulo' AS TIMESTAMP)
+-- Horário de Brasília (UTC-3 fixo, sem horário de verão desde 2019), independente do fuso do servidor.
+-- Obs.: não usar 'America/Sao_Paulo' aqui: a tabela de fusos do Oracle da FIAP ainda aplica horário de verão.
+--   CAST(SYSTIMESTAMP AT TIME ZONE '-03:00' AS TIMESTAMP)
 -- ---------------------------------------------------------------------
 INSERT INTO T_LM_USUARIO (NM_USUARIO, DS_EMAIL, DS_PERFIL, VL_REPUTACAO, DT_CADASTRO)
 VALUES ('Carlos Mendes', 'carlos.mendes@exemplo.com', 'TRABALHADOR', 1.20,
-        CAST(SYSTIMESTAMP AT TIME ZONE 'America/Sao_Paulo' AS TIMESTAMP) - INTERVAL '60' DAY);
+        CAST(SYSTIMESTAMP AT TIME ZONE '-03:00' AS TIMESTAMP) - INTERVAL '60' DAY);
 INSERT INTO T_LM_USUARIO (NM_USUARIO, DS_EMAIL, DS_PERFIL, VL_REPUTACAO, DT_CADASTRO)
 VALUES ('Dona Maria Aparecida', 'maria.aparecida@exemplo.com', 'IDOSO', 1.00,
-        CAST(SYSTIMESTAMP AT TIME ZONE 'America/Sao_Paulo' AS TIMESTAMP) - INTERVAL '45' DAY);
+        CAST(SYSTIMESTAMP AT TIME ZONE '-03:00' AS TIMESTAMP) - INTERVAL '45' DAY);
 INSERT INTO T_LM_USUARIO (NM_USUARIO, DS_EMAIL, DS_PERFIL, VL_REPUTACAO, DT_CADASTRO)
 VALUES ('Juliana Rocha', 'juliana.rocha@exemplo.com', 'MOBILIDADE_REDUZIDA', 1.10,
-        CAST(SYSTIMESTAMP AT TIME ZONE 'America/Sao_Paulo' AS TIMESTAMP) - INTERVAL '40' DAY);
+        CAST(SYSTIMESTAMP AT TIME ZONE '-03:00' AS TIMESTAMP) - INTERVAL '40' DAY);
 INSERT INTO T_LM_USUARIO (NM_USUARIO, DS_EMAIL, DS_PERFIL, VL_REPUTACAO, DT_CADASTRO)
 VALUES ('Pedro Lima', 'pedro.lima@exemplo.com', 'ESTUDANTE', 0.90,
-        CAST(SYSTIMESTAMP AT TIME ZONE 'America/Sao_Paulo' AS TIMESTAMP) - INTERVAL '30' DAY);
+        CAST(SYSTIMESTAMP AT TIME ZONE '-03:00' AS TIMESTAMP) - INTERVAL '30' DAY);
 INSERT INTO T_LM_USUARIO (NM_USUARIO, DS_EMAIL, DS_PERFIL, VL_REPUTACAO, DT_CADASTRO)
 VALUES ('Ana Souza', 'ana.souza@exemplo.com', 'TRABALHADOR', 1.30,
-        CAST(SYSTIMESTAMP AT TIME ZONE 'America/Sao_Paulo' AS TIMESTAMP) - INTERVAL '20' DAY);
+        CAST(SYSTIMESTAMP AT TIME ZONE '-03:00' AS TIMESTAMP) - INTERVAL '20' DAY);
 INSERT INTO T_LM_USUARIO (NM_USUARIO, DS_EMAIL, DS_PERFIL, VL_REPUTACAO, DT_CADASTRO)
 VALUES ('Roberto Alves', 'roberto.alves@exemplo.com', 'TRABALHADOR', 1.05,
-        CAST(SYSTIMESTAMP AT TIME ZONE 'America/Sao_Paulo' AS TIMESTAMP) - INTERVAL '10' DAY);
+        CAST(SYSTIMESTAMP AT TIME ZONE '-03:00' AS TIMESTAMP) - INTERVAL '10' DAY);
 
 -- ---------------------------------------------------------------------
 -- Histórico SIMULADO: 18 estações x 2 sentidos x 3 tipos de dia x 76 faixas (05:00-23:45) = 8.208 linhas
@@ -195,7 +196,7 @@ END;
 -- Relatos de exemplo (relativos ao momento da carga)
 -- ---------------------------------------------------------------------
 DECLARE
-    v_agora TIMESTAMP := CAST(SYSTIMESTAMP AT TIME ZONE 'America/Sao_Paulo' AS TIMESTAMP);
+    v_agora TIMESTAMP := CAST(SYSTIMESTAMP AT TIME ZONE '-03:00' AS TIMESTAMP);
 
     PROCEDURE relato(p_email VARCHAR2, p_estacao VARCHAR2, p_sentido VARCHAR2, p_nivel VARCHAR2, p_min NUMBER) IS
     BEGIN
@@ -224,7 +225,7 @@ END;
 -- Consultas de viagem de exemplo (algumas com sugestão aceita)
 -- ---------------------------------------------------------------------
 DECLARE
-    v_agora TIMESTAMP := CAST(SYSTIMESTAMP AT TIME ZONE 'America/Sao_Paulo' AS TIMESTAMP);
+    v_agora TIMESTAMP := CAST(SYSTIMESTAMP AT TIME ZONE '-03:00' AS TIMESTAMP);
 
     PROCEDURE consulta(p_email VARCHAR2, p_origem VARCHAR2, p_destino VARCHAR2, p_sentido VARCHAR2,
                        p_desejado VARCHAR2, p_sugerido VARCHAR2, p_ind_des NUMBER, p_ind_sug NUMBER,
