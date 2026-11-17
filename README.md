@@ -125,7 +125,7 @@ No IntelliJ: *Run → Edit Configurations → LotaMenosApplication → Active pr
 
 ### 2) Banco Oracle da FIAP — criar as tabelas e os dados
 
-1. Abra o **Oracle SQL Developer** e conecte-se ao Oracle da FIAP: host `oracle.fiap.com.br`, porta `1521`, SID `ORCL`, usuário `RMxxxxx`.
+1. Abra o **Oracle SQL Developer** e conecte-se ao Oracle da FIAP: host `oracle.fiap.com.br`, porta `1521`, SID `ORCL`, usuário `561479`.
 2. *Ferramentas → Preferências → Ambiente → Codificação* = **UTF-8**, para os acentos de Sé, Tatuapé etc. gravarem certo.
 3. Abra `database/01_ddl.sql` e execute **como script (F5)**.
 4. Abra `database/02_dml.sql` e execute **como script (F5)**. O script termina com `COMMIT`.
