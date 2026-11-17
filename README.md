@@ -138,13 +138,13 @@ As credenciais **nunca** ficam em arquivo: elas vão em variáveis de ambiente.
 | Variável | Exemplo |
 |---|---|
 | `DB_URL` | `jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL` (este já é o padrão) |
-| `DB_USER` | `RM12345` |
+| `DB_USER` | `RM561479` |
 | `DB_PASSWORD` | 070507 |
 
-- **No IntelliJ:** *Run → Edit Configurations → LotaMenosApplication → Environment variables* → `DB_USER=RM12345;DB_PASSWORD=suaSenha`. Deixe *Active profiles* vazio.
+- **No IntelliJ:** *Run → Edit Configurations → LotaMenosApplication → Environment variables* → `DB_USER=RM561479;DB_PASSWORD=suaSenha`. Deixe *Active profiles* vazio.
 - **No terminal (PowerShell):**
   ```powershell
-  $env:DB_USER="RM12345"; $env:DB_PASSWORD="suaSenha"; .\mvnw.cmd spring-boot:run
+  $env:DB_USER="RM561479"; $env:DB_PASSWORD="suaSenha"; .\mvnw.cmd spring-boot:run
   ```
 
 ### 4) Testes
