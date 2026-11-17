@@ -141,10 +141,10 @@ As credenciais **nunca** ficam em arquivo: elas vão em variáveis de ambiente.
 | `DB_USER` | `RM561479` |
 | `DB_PASSWORD` | 070507 |
 
-- **No IntelliJ:** *Run → Edit Configurations → LotaMenosApplication → Environment variables* → `DB_USER=RM561479;DB_PASSWORD=suaSenha`. Deixe *Active profiles* vazio.
+- **No IntelliJ:** *Run → Edit Configurations → LotaMenosApplication → Environment variables* → `DB_USER=RM561479;DB_PASSWORD=070507`. Deixe *Active profiles* vazio.
 - **No terminal (PowerShell):**
   ```powershell
-  $env:DB_USER="RM561479"; $env:DB_PASSWORD="suaSenha"; .\mvnw.cmd spring-boot:run
+  $env:DB_USER="RM561479"; $env:DB_PASSWORD="070507"; .\mvnw.cmd spring-boot:run
   ```
 
 ### 4) Testes
