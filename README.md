@@ -139,7 +139,7 @@ As credenciais **nunca** ficam em arquivo: elas vão em variáveis de ambiente.
 |---|---|
 | `DB_URL` | `jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL` (este já é o padrão) |
 | `DB_USER` | `RM12345` |
-| `DB_PASSWORD` | sua senha do Oracle FIAP |
+| `DB_PASSWORD` | 070507 |
 
 - **No IntelliJ:** *Run → Edit Configurations → LotaMenosApplication → Environment variables* → `DB_USER=RM12345;DB_PASSWORD=suaSenha`. Deixe *Active profiles* vazio.
 - **No terminal (PowerShell):**
