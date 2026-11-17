@@ -157,31 +157,6 @@ São 39 testes: unitários de `LotacaoBO`, `ViagemBO`, `RelatoLotacaoBO` e do ge
 
 ---
 
-## Deploy no Render
-
-1. Suba o repositório no GitHub (veja abaixo).
-2. Em <https://render.com>: **New → Web Service → conecte sua conta do GitHub → escolha o repositório**.
-3. Em **Language/Runtime** escolha **Docker**. O Render detecta o `Dockerfile`. Plano: **Free**. Região: Virginia ou Ohio.
-4. Em **Environment Variables** adicione `DB_URL`, `DB_USER` e `DB_PASSWORD` (Oracle FIAP).
-5. Em **Advanced → Health Check Path** coloque `/actuator/health`.
-6. Clique em **Deploy Web Service**. O primeiro build leva de 5 a 10 minutos.
-7. Teste `https://<seu-servico>.onrender.com/` → deve abrir o Swagger.
-
-O `render.yaml` também permite criar o serviço via *New → Blueprint*.
-
-> 🔁 **Plano B:** se o Render não conseguir acessar o Oracle da FIAP (firewall, instabilidade), adicione a variável `SPRING_PROFILES_ACTIVE=dev`. A API sobe com H2 e os mesmos dados simulados, e o Swagger continua 100% funcional para a avaliação.
-
-> 💤 O plano gratuito dorme após inatividade, e a primeira requisição pode levar ~1 minuto.
-
-## Subir no GitHub
-
-```bash
-git remote add origin https://github.com/DigoAbubakir/lota-menos-java.git
-git push -u origin main
-```
-
----
-
 ## Observações
 
 - **Todos os dados são simulados**, criados para fins acadêmicos e inspirados no padrão real de pico da Linha 3-Vermelha. Nenhum dado pessoal real é usado; os e-mails são `@exemplo.com`.
